@@ -1,0 +1,96 @@
+{
+  "type": "IntermediateRegister",
+  "imageCounter": 394032, 
+  "content": [
+    {
+      "path": "/path/to/this/image",
+      "tags": [
+        [
+          "Crapaud",
+          true,
+          122,
+          false,
+          "point",
+          [
+            [
+              12,
+              13
+            ]
+          ]
+        ],
+        [
+          "Crapaud",
+          true,
+          102,
+          false,
+          "rectangle",
+          [
+            [
+              12,
+              13,
+              32,
+              24
+            ]
+          ]
+        ],
+        [
+          "Triton",
+          true,
+          202,
+          true,
+          "cercle",
+          [
+            [
+              32,
+              113,
+              22
+            ]
+          ]
+        ],
+        [
+          "Triton",
+          false,
+          122,
+          true,
+          "multiPoint",
+          [
+            [
+              12,
+              13
+            ],
+            [
+              24,
+              75
+            ],
+            [
+              22,
+              71
+            ],
+            [
+              56,
+              48
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "path": "/path/to/this/otherImage",
+      "tags": [
+        [
+          "Triton",
+          false,
+          52,
+          true,
+          "point",
+          [
+            [
+              12,
+              13
+            ]
+          ]
+        ]
+      ]
+    }
+  ]
+}
