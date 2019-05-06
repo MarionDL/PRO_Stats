@@ -24,8 +24,17 @@ public class JsonStatisticsParser {
     private static ArrayList<Image> images = new ArrayList<>();
     private static int imageCounter;
     private static String type;
+    private int totalNbOfAnimals;
+    private int nbOfToads;
+    private int nbOfFrogs;
+    private int nbOfOthers;
+    private int nbOfTritons;
+    
+    public JsonStatisticsParser() {
+        
+    }
 
-    public static void main(String[] args) {
+    public JsonParser parseFile() {
 
         JsonParser jsonParser = new JsonParser();
         try (FileReader reader = new FileReader(HISTORIC)) {
@@ -35,7 +44,7 @@ public class JsonStatisticsParser {
             JsonObject images = (JsonObject) obj;
 
             type = (String) images.get("type").toString();
-            imageCounter = images.get("imageCounter").getAsInt();        
+            imageCounter = images.get("imageCounter").getAsInt();    
             JsonArray content = (JsonArray) images.get("content");
             parseImageContent(content);
             System.out.println(JsonStatisticsParser.images);
@@ -46,6 +55,8 @@ public class JsonStatisticsParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        return jsonParser;
     }
 
     private static void parseImageContent(JsonArray content) {
@@ -81,5 +92,24 @@ public class JsonStatisticsParser {
         return result;
     }
     
+    public int getNbOfTritons() {
+        return this.nbOfTritons;
+    }
+    
+    public int getNbOfFrogs() {
+        return this.nbOfFrogs;
+    }
+    
+    public int getNbOfToads() {
+        return this.nbOfToads;
+    }
+    
+    public int getNbOfOthers() {
+        return this.nbOfOthers;
+    }
+    
+    public int getTotalNbOfAnimals() {
+        return this.totalNbOfAnimals;
+    }
     
 }
