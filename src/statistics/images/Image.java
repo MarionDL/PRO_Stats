@@ -28,4 +28,8 @@ public class Image {
     public ArrayList<Tag> getTags() {
         return this.tags;
     }
+    
+    public String toString(){
+        return path + " : " + tags.toString() + "\n";
+    }
 }

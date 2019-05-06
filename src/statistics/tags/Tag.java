@@ -20,22 +20,24 @@ public class Tag {
     }
 
     public void setTypeAnimal(String animalType) {
-
         this.animalType = animalType;
     }
 
     public void setIsMale(boolean isMale) {
-
         this.isMale = isMale;
     }
 
     public void setSize(double size) {
-
         this.size = size;
     }
 
     public void setIsEnteringTunnel(boolean isEnteringTunnel) {
-
         this.isEnteringTunnel = isEnteringTunnel;
     }
+    
+    public String toString(){
+     return "{" + animalType + ", " + isMale + ", " + size + ", "+ isEnteringTunnel + "}";
+    }
+    
 }
+

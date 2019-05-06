@@ -35,11 +35,11 @@ public class JsonStatisticsParser {
             JsonObject images = (JsonObject) obj;
 
             type = (String) images.get("type").toString();
-            imageCounter = images.get("imageCounter").getAsInt();
-            
+            imageCounter = images.get("imageCounter").getAsInt();        
             JsonArray content = (JsonArray) images.get("content");
             parseImageContent(content);
-            System.out.println("Done");
+            System.out.println(JsonStatisticsParser.images);
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -80,4 +80,6 @@ public class JsonStatisticsParser {
         }
         return result;
     }
+    
+    
 }
