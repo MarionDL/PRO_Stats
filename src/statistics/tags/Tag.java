@@ -10,10 +10,32 @@ package statistics.tags;
  * @author Marion
  */
 public class Tag {
-    
-    private String typeAnimal;
-    private boolean sexe;
-    private double taille;
-    private boolean positionTunnel;
-    
+
+    private String animalType;
+    private boolean isMale;
+    private double size;
+    private boolean isEnteringTunnel;
+
+    public Tag() {
+    }
+
+    public void setTypeAnimal(String animalType) {
+
+        this.animalType = animalType;
+    }
+
+    public void setIsMale(boolean isMale) {
+
+        this.isMale = isMale;
+    }
+
+    public void setSize(double size) {
+
+        this.size = size;
+    }
+
+    public void setIsEnteringTunnel(boolean isEnteringTunnel) {
+
+        this.isEnteringTunnel = isEnteringTunnel;
+    }
 }
