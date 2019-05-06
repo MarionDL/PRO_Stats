@@ -1,3 +1,5 @@
+package charts;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,12 +26,7 @@ public class Application {
         // 1.1 Comptage nb d'animaux total
         // 1.2 Comptage nb d'animaux pour chaque type
         // 1.3 Creation du camembert
-        ObservableList<PieChart.Data> mainPieData = FXCollections.observableArrayList(
-                new PieChartData("Toads", 25), 
-                new PieChartData("Frogs", 25),
-                new PieChartData("Triton", 25),
-                new PieChartData("Other", 25));
-        PieChart mainPie = new PieChart();
+        
     }
     
 }
