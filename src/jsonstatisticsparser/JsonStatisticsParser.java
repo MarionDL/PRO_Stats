@@ -28,32 +28,29 @@ public class JsonStatisticsParser {
     private static String type;
     private static int nbTotal;
     private int totalNbOfAnimals;
-    private int nbOfToads;
-    private int nbOfFrogs;
-    private int nbOfOthers;
-    private int nbOfTritons;
-    private static Map<animalType, Integer> map = new HashMap<>();
+    private Map<animalType, Integer> map = new HashMap<>();
     
     public JsonStatisticsParser() {
+        initiasizeHashMap();
         
     }
 
-     public static void main(String[] args){
-     initiasizeHashMap();
-     JsonStatisticsParser jsonmoi = new JsonStatisticsParser();
-     jsonmoi.parseFile();
-     System.out.println(map.get(animalType.CRAPAUD));
-     }
-    
-     private static void initiasizeHashMap(){
-     //map.put(animalType.CRAPAUD, 0);
-     //map.put(animalType.TRITON, 0);
-     
-            for (animalType a : animalType.values()) {
-                map.put(a, 0);
-            
+    /* public void main(String[] args) {
+        initiasizeHashMap();
+        JsonStatisticsParser jsonmoi = new JsonStatisticsParser();
+        jsonmoi.parseFile();
+        System.out.println(map.get(animalType.CRAPAUD));
+    } */
+
+    private void initiasizeHashMap() {
+        //map.put(animalType.CRAPAUD, 0);
+        //map.put(animalType.TRITON, 0);
+
+        for (animalType a : animalType.values()) {
+            map.put(a, 0);
+
         }
-     }
+    }
      
      
     public JsonParser parseFile() {
@@ -81,7 +78,7 @@ public class JsonStatisticsParser {
         return jsonParser;
     }
 
-    private static void parseImageContent(JsonArray content) {
+    private void parseImageContent(JsonArray content) {
 
         for (Object image : content) {
             JsonObject jimage = (JsonObject) image;
@@ -97,7 +94,7 @@ public class JsonStatisticsParser {
         
     }
 
-    private static ArrayList<Tag> parseContentTags(JsonArray tags) {
+    private ArrayList<Tag> parseContentTags(JsonArray tags) {
 
         ArrayList<Tag> result = new ArrayList<Tag>();
         for (Object tag : tags) {
@@ -116,7 +113,7 @@ public class JsonStatisticsParser {
         return result;
     }
 
-    private static void findAnimalType(String animal) {
+    private void findAnimalType(String animal) {
         for (animalType a : animalType.values()) {
             if (animal.equals(a.getName())) {
                 map.put(a, map.get(a) + 1);
@@ -128,24 +125,11 @@ public class JsonStatisticsParser {
         return this.nbTotal;
     }
     
-    public int getNbOfTritons() {
-        return this.nbOfTritons;
-    }
-    
-    public int getNbOfFrogs() {
-        return this.nbOfFrogs;
-    }
-    
-    public int getNbOfToads() {
-        return this.nbOfToads;
-    }
-    
-    public int getNbOfOthers() {
-        return this.nbOfOthers;
-    }
-    
     public int getTotalNbOfAnimals() {
         return this.totalNbOfAnimals;
     }
     
+    public Map<animalType, Integer> getMap() {
+        return this.map;
+    }
 }

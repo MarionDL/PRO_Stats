@@ -17,6 +17,7 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 
 import jsonstatisticsparser.*;
+import animalType.*;
 
 /**
  *
@@ -47,11 +48,11 @@ public class MainApp extends Application {
         ((Group) scene.getRoot()).getChildren().add(chart);
         
         // Creation de la fenetre droite
-        Group gr = new Group();
+        /* Group gr = new Group();
         Button btn = new Button();
         btn.setText("Test");
         gr.getChildren().add(btn);
-        ((Group) scene.getRoot()).getChildren().add(gr);
+        ((Group) scene.getRoot()).getChildren().add(gr); */
         
         // A integrer dans Swing avec JFXPanel
         stage.setScene(scene);
@@ -65,17 +66,17 @@ public class MainApp extends Application {
     public PieChart createMainPieChart() {
         
         // Recuperation du nombre d'animaux
-        // int totalNbOfAnimals = parser.getTotalNbOfAnimals();
-        /* int nbOfTritons = parser.getNbOfTritons();
-        int nbOfToads = parser.getNbOfToads();
-        int nbOfFrogs = parser.getNbOfFrogs();
-        int nbOfOther = parser.getNbOfOthers(); */
+        int totalNbOfAnimals = parser.getTotalNbOfAnimals();
+        int nbOfTritons = parser.getMap().get(animalType.TRITON);
+        int nbOfToads = parser.getMap().get(animalType.CRAPAUD);
+        int nbOfFrogs = parser.getMap().get(animalType.CRAPAUD);
+        int nbOfOther = parser.getMap().get(animalType.TRITON);
         
-        int totalNbOfAnimals = 100;
+        /* int totalNbOfAnimals = 100;
         int nbOfTritons = 25;
         int nbOfToads = 25;
         int nbOfFrogs = 25;
-        int nbOfOther = 25;
+        int nbOfOther = 25; */
  
         // Creation d'une liste de donnees a mettre dans la pie chart
         ObservableList<PieChart.Data> pieChartData =
