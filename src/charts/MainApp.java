@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.chart.*;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
+
 import jsonstatisticsparser.*;
 
 /**
@@ -32,16 +34,26 @@ public class MainApp extends Application {
         parser.parseFile();
         
         // A integrer dans Swing avec JFXPanel
-        Scene scene = new Scene(new Group());
+        Group mainGroup = new Group();
+        Scene scene = new Scene(mainGroup);
         stage.setTitle("Crapauduc Viewer Statistics");
-        stage.setWidth(500);
-        stage.setHeight(500);
+        stage.setWidth(1000);
+        stage.setHeight(1000);
  
         // Pie chart principale
         PieChart chart = createMainPieChart();
 
         // A integrer dans Swing avec JFXPanel
         ((Group) scene.getRoot()).getChildren().add(chart);
+        
+        // Creation de la fenetre droite
+        Group gr = new Group();
+        Button btn = new Button();
+        btn.setText("Test");
+        gr.getChildren().add(btn);
+        ((Group) scene.getRoot()).getChildren().add(gr);
+        
+        // A integrer dans Swing avec JFXPanel
         stage.setScene(scene);
         stage.show();
     }
@@ -53,11 +65,17 @@ public class MainApp extends Application {
     public PieChart createMainPieChart() {
         
         // Recuperation du nombre d'animaux
-        int totalNbOfAnimals = parser.getTotalNbOfAnimals();
-        int nbOfTritons = parser.getNbOfTritons();
+        // int totalNbOfAnimals = parser.getTotalNbOfAnimals();
+        /* int nbOfTritons = parser.getNbOfTritons();
         int nbOfToads = parser.getNbOfToads();
         int nbOfFrogs = parser.getNbOfFrogs();
-        int nbOfOther = parser.getNbOfOthers();
+        int nbOfOther = parser.getNbOfOthers(); */
+        
+        int totalNbOfAnimals = 100;
+        int nbOfTritons = 25;
+        int nbOfToads = 25;
+        int nbOfFrogs = 25;
+        int nbOfOther = 25;
  
         // Creation d'une liste de donnees a mettre dans la pie chart
         ObservableList<PieChart.Data> pieChartData =
@@ -66,6 +84,11 @@ public class MainApp extends Application {
                 new PieChart.Data("Frogs", nbOfFrogs),
                 new PieChart.Data("Toads", nbOfToads),
                 new PieChart.Data("Other", nbOfOther));
+        
+        // Change colors : faut le faire apres avoir affiché la scene
+        /* for (PieChart.Data data : pieChartData) {
+            data.getNode().setStyle("-fx-pie-color: #ffd700;");
+        } */
         
         // Creation d'une pie chart
         final PieChart chart = new PieChart(pieChartData);
@@ -78,7 +101,6 @@ public class MainApp extends Application {
      * Main entry point
      */
     public static void main(String[] args) {
-
         launch(args);
     }
     
