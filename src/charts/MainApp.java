@@ -68,10 +68,10 @@ public class MainApp extends Application {
         
         // Recuperation du nombre d'animaux
         int totalNbOfAnimals = statHandler.getTotalNbOfAnimals();
-        int nbOfTritons = statHandler.getMap().get(animalType.TRITON);
-        int nbOfToads = statHandler.getMap().get(animalType.GRENOUILLE);
-        int nbOfFrogs = statHandler.getMap().get(animalType.CRAPAUD);
-        int nbOfOther = statHandler.getMap().get(animalType.AUTRE);
+        int nbOfTritons = statHandler.getAnimalTypeCounter().get(animalType.TRITON);
+        int nbOfToads = statHandler.getAnimalTypeCounter().get(animalType.GRENOUILLE);
+        int nbOfFrogs = statHandler.getAnimalTypeCounter().get(animalType.CRAPAUD);
+        int nbOfOther = statHandler.getAnimalTypeCounter().get(animalType.AUTRE);
        
         // Creation d'une liste de donnees a mettre dans la pie chart
         ObservableList<PieChart.Data> pieChartData =
@@ -98,6 +98,7 @@ public class MainApp extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+       
     }
     
 }

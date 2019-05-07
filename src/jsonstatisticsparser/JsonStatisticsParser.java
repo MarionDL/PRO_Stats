@@ -23,12 +23,9 @@ import charts.*;
  * @author Edd993Surface
  */
 public class JsonStatisticsParser {
-
+ 
     private static final String HISTORIC = "historic.json";
-    //private static ArrayList<Image> images = new ArrayList<>();
-    private static String type;
-    StatisticsHandler statHandler;
-    //private Map<animalType, Integer> map = new HashMap<>();
+    private StatisticsHandler statHandler;
     
     public JsonStatisticsParser(StatisticsHandler statHandler) {
         this.statHandler = statHandler;
@@ -44,12 +41,9 @@ public class JsonStatisticsParser {
 
             JsonObject images = (JsonObject) obj;
 
-            type = (String) images.get("type").toString();
             statHandler.setTotalNbOfAnimals(images.get("imageCounter").getAsInt());    
             JsonArray content = (JsonArray) images.get("content");
             parseImageContent(content);
-            
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -69,8 +63,9 @@ public class JsonStatisticsParser {
             JsonArray tags = (JsonArray) jimage.get("tags");
             
            ArrayList<Tag> tagsStructure = parseContentTags(tags);
-           Image imageStructure = new Image(path, tagsStructure);
            
+           Image imageStructure = new Image(path, tagsStructure);
+           System.out.println(image);
            statHandler.addImage(imageStructure);
         }
         
@@ -83,7 +78,7 @@ public class JsonStatisticsParser {
             JsonArray jtag = (JsonArray) tag;
             Tag tagStructure = new Tag();
 
-            statHandler.findAnimalType(jtag.get(0).getAsString());
+            statHandler.countAnimalType(jtag.get(0).getAsString());
             
             tagStructure.setTypeAnimal(jtag.get(0).getAsString());
             tagStructure.setIsMale(jtag.get(1).getAsBoolean());

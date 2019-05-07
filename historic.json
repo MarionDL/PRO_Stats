@@ -3,7 +3,7 @@
   "imageCounter": 394032, 
   "content": [
     {
-      "path": "/path/to/this/image",
+      "path": "/Camera1/2017-2-23/001/jpg/09/56",
       "tags": [
         [
           "Crapaud",
@@ -75,7 +75,7 @@
       ]
     },
     {
-      "path": "/path/to/this/otherImage",
+      "path": "/Camera2/2017-2-23/001/jpg/09/57",
       "tags": [
         [
           "Triton",
