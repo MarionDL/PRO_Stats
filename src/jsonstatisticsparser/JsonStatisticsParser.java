@@ -31,15 +31,13 @@ public class JsonStatisticsParser {
     private Map<animalType, Integer> map = new HashMap<>();
     
     public JsonStatisticsParser() {
-        initiasizeHashMap();
-        
+        initiasizeHashMap();       
     }
 
     private void initiasizeHashMap() {
 
         for (animalType a : animalType.values()) {
             map.put(a, 0);
-
         }
     }
      

@@ -68,23 +68,17 @@ public class MainApp extends Application {
         // Recuperation du nombre d'animaux
         int totalNbOfAnimals = parser.getTotalNbOfAnimals();
         int nbOfTritons = parser.getMap().get(animalType.TRITON);
-        int nbOfToads = parser.getMap().get(animalType.CRAPAUD);
+        int nbOfToads = parser.getMap().get(animalType.GRENOUILLE);
         int nbOfFrogs = parser.getMap().get(animalType.CRAPAUD);
-        int nbOfOther = parser.getMap().get(animalType.TRITON);
-        
-        /* int totalNbOfAnimals = 100;
-        int nbOfTritons = 25;
-        int nbOfToads = 25;
-        int nbOfFrogs = 25;
-        int nbOfOther = 25; */
- 
+        int nbOfOther = parser.getMap().get(animalType.AUTRE);
+       
         // Creation d'une liste de donnees a mettre dans la pie chart
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                new PieChart.Data("Tritons", nbOfTritons),
-                new PieChart.Data("Frogs", nbOfFrogs),
-                new PieChart.Data("Toads", nbOfToads),
-                new PieChart.Data("Other", nbOfOther));
+                new PieChart.Data(animalType.TRITON.getName(), nbOfTritons),
+                new PieChart.Data(animalType.GRENOUILLE.getName(), nbOfFrogs),
+                new PieChart.Data(animalType.CRAPAUD.getName(), nbOfToads),
+                new PieChart.Data(animalType.AUTRE.getName(), nbOfOther));
         
         // Change colors : faut le faire apres avoir affiché la scene
         /* for (PieChart.Data data : pieChartData) {
