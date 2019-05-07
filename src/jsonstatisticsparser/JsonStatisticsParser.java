@@ -16,6 +16,7 @@ import java.util.Map;
 
 import statistics.images.Image;
 import statistics.tags.Tag;
+import charts.*;
 
 /**
  *
@@ -24,21 +25,13 @@ import statistics.tags.Tag;
 public class JsonStatisticsParser {
 
     private static final String HISTORIC = "historic.json";
-    private static ArrayList<Image> images = new ArrayList<>();
+    //private static ArrayList<Image> images = new ArrayList<>();
     private static String type;
-    private static int nbTotal;
-    private int totalNbOfAnimals;
-    private Map<animalType, Integer> map = new HashMap<>();
+    StatisticsHandler statHandler;
+    //private Map<animalType, Integer> map = new HashMap<>();
     
-    public JsonStatisticsParser() {
-        initiasizeHashMap();       
-    }
-
-    private void initiasizeHashMap() {
-
-        for (animalType a : animalType.values()) {
-            map.put(a, 0);
-        }
+    public JsonStatisticsParser(StatisticsHandler statHandler) {
+        this.statHandler = statHandler;
     }
      
      
@@ -52,7 +45,7 @@ public class JsonStatisticsParser {
             JsonObject images = (JsonObject) obj;
 
             type = (String) images.get("type").toString();
-            nbTotal = images.get("imageCounter").getAsInt();    
+            statHandler.setTotalNbOfAnimals(images.get("imageCounter").getAsInt());    
             JsonArray content = (JsonArray) images.get("content");
             parseImageContent(content);
             
@@ -78,7 +71,7 @@ public class JsonStatisticsParser {
            ArrayList<Tag> tagsStructure = parseContentTags(tags);
            Image imageStructure = new Image(path, tagsStructure);
            
-           images.add(imageStructure);
+           statHandler.addImage(imageStructure);
         }
         
     }
@@ -90,7 +83,7 @@ public class JsonStatisticsParser {
             JsonArray jtag = (JsonArray) tag;
             Tag tagStructure = new Tag();
 
-            findAnimalType(jtag.get(0).getAsString());
+            statHandler.findAnimalType(jtag.get(0).getAsString());
             
             tagStructure.setTypeAnimal(jtag.get(0).getAsString());
             tagStructure.setIsMale(jtag.get(1).getAsBoolean());
@@ -101,24 +94,5 @@ public class JsonStatisticsParser {
         }
         return result;
     }
-
-    private void findAnimalType(String animal) {
-        for (animalType a : animalType.values()) {
-            if (animal.equals(a.getName())) {
-                map.put(a, map.get(a) + 1);
-            }
-        }
-    }
     
-   public int getNbTotal() {
-        return this.nbTotal;
-    }
-    
-    public int getTotalNbOfAnimals() {
-        return this.totalNbOfAnimals;
-    }
-    
-    public Map<animalType, Integer> getMap() {
-        return this.map;
-    }
 }

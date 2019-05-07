@@ -26,12 +26,13 @@ import animalType.*;
 public class MainApp extends Application {
     
     private JsonStatisticsParser parser;
+    private StatisticsHandler statHandler = new StatisticsHandler();
     
     @Override 
     public void start(Stage stage) {
         
         // Recuperation des donnees du parser
-        parser = new JsonStatisticsParser();
+        parser = new JsonStatisticsParser(statHandler);
         parser.parseFile();
         
         // A integrer dans Swing avec JFXPanel
@@ -66,11 +67,11 @@ public class MainApp extends Application {
     public PieChart createMainPieChart() {
         
         // Recuperation du nombre d'animaux
-        int totalNbOfAnimals = parser.getTotalNbOfAnimals();
-        int nbOfTritons = parser.getMap().get(animalType.TRITON);
-        int nbOfToads = parser.getMap().get(animalType.GRENOUILLE);
-        int nbOfFrogs = parser.getMap().get(animalType.CRAPAUD);
-        int nbOfOther = parser.getMap().get(animalType.AUTRE);
+        int totalNbOfAnimals = statHandler.getTotalNbOfAnimals();
+        int nbOfTritons = statHandler.getMap().get(animalType.TRITON);
+        int nbOfToads = statHandler.getMap().get(animalType.GRENOUILLE);
+        int nbOfFrogs = statHandler.getMap().get(animalType.CRAPAUD);
+        int nbOfOther = statHandler.getMap().get(animalType.AUTRE);
        
         // Creation d'une liste de donnees a mettre dans la pie chart
         ObservableList<PieChart.Data> pieChartData =
