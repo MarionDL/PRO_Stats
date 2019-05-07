@@ -11,6 +11,8 @@ package animalType;
  */
 public enum animalType {
     
+    AUTRE("Autre"),
+    GRENOUILLE("Grenouille"),
     CRAPAUD("Crapaud"),
     TRITON("Triton");
 

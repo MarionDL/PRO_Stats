@@ -35,16 +35,7 @@ public class JsonStatisticsParser {
         
     }
 
-    /* public void main(String[] args) {
-        initiasizeHashMap();
-        JsonStatisticsParser jsonmoi = new JsonStatisticsParser();
-        jsonmoi.parseFile();
-        System.out.println(map.get(animalType.CRAPAUD));
-    } */
-
     private void initiasizeHashMap() {
-        //map.put(animalType.CRAPAUD, 0);
-        //map.put(animalType.TRITON, 0);
 
         for (animalType a : animalType.values()) {
             map.put(a, 0);
