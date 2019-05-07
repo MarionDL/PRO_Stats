@@ -20,9 +20,9 @@ public enum animalType {
         this.animalName = animalName;
     }
     
-    public String toString(){
+    public String getName(){
         return animalName;
     }
-    
+
 
 }

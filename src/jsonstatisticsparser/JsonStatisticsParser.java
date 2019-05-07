@@ -5,11 +5,14 @@
  */
 package jsonstatisticsparser;
 
+import animalType.animalType;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import com.google.gson.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import statistics.images.Image;
 import statistics.tags.Tag;
@@ -22,18 +25,37 @@ public class JsonStatisticsParser {
 
     private static final String HISTORIC = "historic.json";
     private static ArrayList<Image> images = new ArrayList<>();
-    private static int imageCounter;
     private static String type;
+    private static int nbTotal;
     private int totalNbOfAnimals;
     private int nbOfToads;
     private int nbOfFrogs;
     private int nbOfOthers;
     private int nbOfTritons;
+    private static Map<animalType, Integer> map = new HashMap<>();
     
     public JsonStatisticsParser() {
         
     }
 
+     public static void main(String[] args){
+     initiasizeHashMap();
+     JsonStatisticsParser jsonmoi = new JsonStatisticsParser();
+     jsonmoi.parseFile();
+     System.out.println(map.get(animalType.CRAPAUD));
+     }
+    
+     private static void initiasizeHashMap(){
+     //map.put(animalType.CRAPAUD, 0);
+     //map.put(animalType.TRITON, 0);
+     
+            for (animalType a : animalType.values()) {
+                map.put(a, 0);
+            
+        }
+     }
+     
+     
     public JsonParser parseFile() {
 
         JsonParser jsonParser = new JsonParser();
@@ -44,10 +66,10 @@ public class JsonStatisticsParser {
             JsonObject images = (JsonObject) obj;
 
             type = (String) images.get("type").toString();
-            imageCounter = images.get("imageCounter").getAsInt();    
+            nbTotal = images.get("imageCounter").getAsInt();    
             JsonArray content = (JsonArray) images.get("content");
             parseImageContent(content);
-            System.out.println(JsonStatisticsParser.images);
+            
 
 
         } catch (FileNotFoundException e) {
@@ -82,7 +104,9 @@ public class JsonStatisticsParser {
             JsonArray jtag = (JsonArray) tag;
             Tag tagStructure = new Tag();
 
-            tagStructure.setTypeAnimal(jtag.get(0).toString());
+            findAnimalType(jtag.get(0).getAsString());
+            
+            tagStructure.setTypeAnimal(jtag.get(0).getAsString());
             tagStructure.setIsMale(jtag.get(1).getAsBoolean());
             tagStructure.setSize(jtag.get(2).getAsDouble());
             tagStructure.setIsEnteringTunnel(jtag.get(3).getAsBoolean());
@@ -90,6 +114,18 @@ public class JsonStatisticsParser {
             result.add(tagStructure);
         }
         return result;
+    }
+
+    private static void findAnimalType(String animal) {
+        for (animalType a : animalType.values()) {
+            if (animal.equals(a.getName())) {
+                map.put(a, map.get(a) + 1);
+            }
+        }
+    }
+    
+   public int getNbTotal() {
+        return this.nbTotal;
     }
     
     public int getNbOfTritons() {
