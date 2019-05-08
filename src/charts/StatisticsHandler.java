@@ -18,8 +18,9 @@ import statistics.images.Image;
 public class StatisticsHandler {
 
     private Map<animalType, Integer> animalTypeCounter = new HashMap<>();
-    private Map<String, Integer> cameraObservations = new HashMap<>();
-    private Map<String, Integer> daysObservations = new HashMap<>();
+    public Map<String, Integer> cameraObservations = new HashMap<>();
+    public Map<String, Integer> daysObservations = new HashMap<>();
+    public Map<String, Integer> sequenceObservations = new HashMap<>();
     private static ArrayList<Image> images = new ArrayList<>();
     private int totalNbOfAnimals;
 
@@ -46,11 +47,15 @@ public class StatisticsHandler {
     }
 
     public void countCameraObservation(String cameraName, int numberOfTagsForAnImage) {
-        this.countStringMap(animalTypeCounter, cameraName, numberOfTagsForAnImage);
+        this.countStringMap(cameraObservations, cameraName, numberOfTagsForAnImage);
     }
 
     public void countDaysObservation(String dayName, int numberOfTagsForAnImage) {
-        this.countStringMap(animalTypeCounter, dayName, numberOfTagsForAnImage);
+        this.countStringMap(daysObservations, dayName, numberOfTagsForAnImage);
+    }
+
+    public void countSequenceObservation(String sequenceName, int numberOfTagsForAnImage) {
+        this.countStringMap(sequenceObservations, sequenceName, numberOfTagsForAnImage);
     }
 
     public void countAnimalType(String animal) {

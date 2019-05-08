@@ -62,6 +62,11 @@ public class JsonStatisticsParser {
            ArrayList<Tag> tagsStructure = parseContentTags(tags);
            
            Image imageStructure = new Image(path, tagsStructure);
+           
+           statHandler.countCameraObservation(imageStructure.getCamera(), tagsStructure.size());
+           statHandler.countDaysObservation(imageStructure.getDate(), tagsStructure.size());
+           statHandler.countSequenceObservation(imageStructure.getSequence(), tagsStructure.size());
+           
            //System.out.println(image);
            statHandler.addImage(imageStructure);
         }
@@ -69,8 +74,8 @@ public class JsonStatisticsParser {
     }
 
     private ArrayList<Tag> parseContentTags(JsonArray tags) {
-
-        ArrayList<Tag> result = new ArrayList<Tag>();
+        
+        ArrayList<Tag> result = new ArrayList<>();
         for (Object tag : tags) {
             JsonArray jtag = (JsonArray) tag;
             Tag tagStructure = new Tag();

@@ -53,6 +53,9 @@ public class MainApp extends JFrame {
         // Recuperation des donnees du parser
         parser = new JsonStatisticsParser(statHandler);
         parser.parseFile();
+        System.out.println(statHandler.sequenceObservations);
+        System.out.println(statHandler.daysObservations);
+        System.out.println(statHandler.cameraObservations);
 
         Group root = new Group();
         Color backgroundColor = Color.rgb(110, 25, 222);

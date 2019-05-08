@@ -51,6 +51,18 @@ public class Image {
         return this.tags;
     }
 
+    public String getCamera() {
+        return this.camera;
+    }
+
+    public String getDate() {
+        return this.date;
+    }
+
+    public String getSequence() {
+        return this.sequence;
+    }
+
     @Override
     public String toString() {
         return camera + " " + date + " " + sequence + " :    " + tags.toString() + "\n";
