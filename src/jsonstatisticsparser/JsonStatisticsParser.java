@@ -5,14 +5,11 @@
  */
 package jsonstatisticsparser;
 
-import animalType.animalType;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import com.google.gson.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import statistics.images.Image;
 import statistics.tags.Tag;
@@ -24,7 +21,7 @@ import charts.*;
  */
 public class JsonStatisticsParser {
  
-    private static final String HISTORIC = "historic.json";
+    private static final String HISTORIC = "history.json";
     private StatisticsHandler statHandler;
     
     public JsonStatisticsParser(StatisticsHandler statHandler) {
@@ -59,13 +56,13 @@ public class JsonStatisticsParser {
         for (Object image : content) {
             JsonObject jimage = (JsonObject) image;
             
-            String path = (String) jimage.get("path").toString();
+            String path = (String) jimage.get("path").getAsString();
             JsonArray tags = (JsonArray) jimage.get("tags");
             
            ArrayList<Tag> tagsStructure = parseContentTags(tags);
            
            Image imageStructure = new Image(path, tagsStructure);
-           System.out.println(image);
+           //System.out.println(image);
            statHandler.addImage(imageStructure);
         }
         
@@ -79,10 +76,10 @@ public class JsonStatisticsParser {
             Tag tagStructure = new Tag();
 
             statHandler.countAnimalType(jtag.get(0).getAsString());
-            
+
             tagStructure.setTypeAnimal(jtag.get(0).getAsString());
-            tagStructure.setIsMale(jtag.get(1).getAsBoolean());
-            tagStructure.setSize(jtag.get(2).getAsDouble());
+            tagStructure.setSize(jtag.get(1).getAsDouble());
+            tagStructure.setIsMale(jtag.get(2).getAsBoolean());
             tagStructure.setIsEnteringTunnel(jtag.get(3).getAsBoolean());
 
             result.add(tagStructure);
