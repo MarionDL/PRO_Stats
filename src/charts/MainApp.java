@@ -57,7 +57,7 @@ public class MainApp extends JFrame {
         Group root = new Group();
         Color backgroundColor = Color.rgb(110, 25, 222);
         Scene scene = new Scene(root, backgroundColor);
-        scene.getStylesheets().add("AppStyle.css");
+        scene.getStylesheets().add("charts/AppStyle.css");
 
         /*
         * Creation de la Pie Chart principale

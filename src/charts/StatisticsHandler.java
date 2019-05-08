@@ -74,9 +74,3 @@ public class StatisticsHandler {
     }
 
 }
-
-//        if (cameraObservations.containsKey(cameraName)){
-//            cameraObservations.put(cameraName, cameraObservations.get(cameraName) + numberOfTagsForAnImage);
-//        } else {
-//            cameraObservations.put(cameraName, numberOfTagsForAnImage);
-//        }
