@@ -22,7 +22,11 @@ public class Tag {
     public void setTypeAnimal(String animalType) {
         this.animalType = animalType;
     }
-
+    
+    public String getAnimalType() {
+       return animalType;
+    }
+    
     public void setIsMale(boolean isMale) {
         this.isMale = isMale;
     }

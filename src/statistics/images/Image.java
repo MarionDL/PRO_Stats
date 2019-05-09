@@ -5,6 +5,7 @@
  */
 package statistics.images;
 
+import charts.Month;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,8 +21,8 @@ public class Image {
 
     private String camera;
     private String date;                // xxxx-xx-xx form
-    private String month;
-    private String sequence;            // hh:mm form  
+    private String sequence;            // hh:mm form 
+    private Month month;
     private final ArrayList<Tag> tags;  // Tags saved in this image
 
     private static String[] splitPath(String pathString) {
@@ -41,8 +42,9 @@ public class Image {
             String[] path_sep = splitPath(path);
             this.camera = path_sep[0];
             this.date = path_sep[1];
-           // this.month = 
-            this.sequence =  path_sep[0] +"/"+ path_sep[1] +"/"+ path_sep[4] + ":" + path_sep[5];
+            this.sequence = path_sep[0] + "/" + path_sep[1] + "/" + path_sep[4] + ":" + path_sep[5];
+            String[] dateParts = date.split("-");
+            this.month = Month.values()[Integer.parseInt(dateParts[1])];
 
         } catch (Exception e) {
             System.out.println("Error: not valid path");
@@ -63,6 +65,10 @@ public class Image {
 
     public String getSequence() {
         return this.sequence;
+    }
+
+    public String getMonth() {
+        return this.month.getName();
     }
 
     @Override

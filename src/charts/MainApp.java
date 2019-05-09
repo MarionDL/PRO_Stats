@@ -36,7 +36,7 @@ public class MainApp extends JFrame {
             JFrame mainFrame = new JFrame("Crapauduc Viewer Statistics");
             final JFXPanel fxPanel = new JFXPanel();
             mainFrame.add(fxPanel);
-            mainFrame.setSize(1000, 500);
+            mainFrame.setSize(1500, 1000);
             mainFrame.setVisible(true);
             mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

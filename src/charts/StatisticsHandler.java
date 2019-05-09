@@ -30,6 +30,8 @@ public class StatisticsHandler {
     public Map<String, Integer> dateObservations = new HashMap<>();
     public Map<String, Integer> sequenceObservations = new HashMap<>();
     private static ArrayList<Image> images = new ArrayList<>();
+    private Map<String, Integer> monthlyObservations = new HashMap<>();
+    private Map<String, List<Integer>> monthlyObservationsByAnimalType = new HashMap<>();
     
     private int totalNbOfAnimals;
     
@@ -46,8 +48,18 @@ public class StatisticsHandler {
 
     private void initiasize() {
         for (animalType a : animalType.values()) {
-            animalTypeCounter.put(a, 0);     
+            animalTypeCounter.put(a, 0);
         }
+        
+        List<Integer> values = new ArrayList<>();
+        values.add(0);
+        values.add(0);
+        values.add(0);
+        values.add(0);
+        for (Month a : Month.values()) {
+            monthlyObservationsByAnimalType.put(a.getName(), values);
+        }
+        
         totalNbOfAnimals = 0;
     }
 
@@ -77,7 +89,6 @@ public class StatisticsHandler {
     }
 
     private String returnDataString(List<String> list) {
-
         StringJoiner joiner = new StringJoiner(" - ");
         for (String iter : list) {
             joiner.add(iter);
@@ -92,6 +103,7 @@ public class StatisticsHandler {
             map.put(key, value);
         }
     }
+    
 
     public void countCameraObservation(String cameraName, int numberOfTagsForAnImage) {
         this.countStringMap(cameraObservations, cameraName, numberOfTagsForAnImage);
@@ -104,11 +116,30 @@ public class StatisticsHandler {
     public void countSequenceObservation(String sequenceName, int numberOfTagsForAnImage) {
         this.countStringMap(sequenceObservations, sequenceName, numberOfTagsForAnImage);
     }
+    
+    public void countMonthlyObservation(String monthName, int numberOfTagsForAnImage) {
+        this.countStringMap(monthlyObservations, monthName, numberOfTagsForAnImage);
+    }
 
     public void countAnimalType(String animal) {
         for (animalType a : animalType.values()) {
             if (animal.equals(a.getName())) {
                 animalTypeCounter.put(a, animalTypeCounter.get(a) + 1);
+            }
+        }
+    }
+        
+    public void countMonthlyObservationsByAnimalType(String animal, String month) {
+        
+        for (Month a : Month.values()) {
+            if (month.equals(a.getName())) {
+                List<Integer> list = monthlyObservationsByAnimalType.get(a.getName());
+                for (animalType b : animalType.values()){
+                    if (animal.equals(b.getName())){
+                            list.set(b.ordinal(),(list.get(b.ordinal()) + 1));
+                    } 
+                }
+                monthlyObservationsByAnimalType.put(a.getName(), list);
             }
         }
     }

@@ -67,8 +67,14 @@ public class JsonStatisticsParser {
            statHandler.countCameraObservation(imageStructure.getCamera(), tagsStructure.size());
            statHandler.countDaysObservation(imageStructure.getDate(), tagsStructure.size());
            statHandler.countSequenceObservation(imageStructure.getSequence(), tagsStructure.size());
+           statHandler.countMonthlyObservation(imageStructure.getMonth(), tagsStructure.size());
            statHandler.addNbAnimals(tagsStructure.size());
-
+           
+           for (Tag tag : tagsStructure){      
+               statHandler.countMonthlyObservationsByAnimalType(tag.getAnimalType(), imageStructure.getMonth());
+               statHandler.countAnimalType(tag.getAnimalType());
+           }
+           
            statHandler.addImage(imageStructure);
         }
         
@@ -80,9 +86,7 @@ public class JsonStatisticsParser {
         for (Object tag : tags) {
             JsonArray jtag = (JsonArray) tag;
             Tag tagStructure = new Tag();
-
-            statHandler.countAnimalType(jtag.get(0).getAsString());
-
+            
             tagStructure.setTypeAnimal(jtag.get(0).getAsString());
             tagStructure.setSize(jtag.get(1).getAsDouble());
             tagStructure.setIsMale(jtag.get(2).getAsBoolean());

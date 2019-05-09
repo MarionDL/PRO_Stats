@@ -11,10 +11,11 @@ package animalType;
  */
 public enum animalType {
     
-    AUTRE("Autre"),
+   
     GRENOUILLE("Grenouille"),
     CRAPAUD("Crapaud"),
-    TRITON("Triton");
+    TRITON("Triton"),
+    AUTRE("Autre");
 
     private final String animalName;
 
