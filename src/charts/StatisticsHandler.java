@@ -23,13 +23,12 @@ public class StatisticsHandler {
     
     private static final String MIN = "min";
     private static final String MAX = "max";
-
+    private static ArrayList<Image> images = new ArrayList<>();
 
     private Map<animalType, Integer> animalTypeCounter = new HashMap<>();
-    public Map<String, Integer> cameraObservations = new HashMap<>();
-    public Map<String, Integer> dateObservations = new HashMap<>();
-    public Map<String, Integer> sequenceObservations = new HashMap<>();
-    private static ArrayList<Image> images = new ArrayList<>();
+    private Map<String, Integer> cameraObservations = new HashMap<>();
+    private Map<String, Integer> dateObservations = new HashMap<>();
+    private Map<String, Integer> sequenceObservations = new HashMap<>();
     private Map<String, Integer> monthlyObservations = new HashMap<>();
     private Map<String, List<Integer>> monthlyObservationsByAnimalType = new HashMap<>();
     
@@ -46,17 +45,19 @@ public class StatisticsHandler {
         initiasize();
     }
 
-    private void initiasize() {
+    private void initiasize() {   
+        
+        
         for (animalType a : animalType.values()) {
-            animalTypeCounter.put(a, 0);
+            animalTypeCounter.put(a, 0);  
         }
         
-        List<Integer> values = new ArrayList<>();
-        values.add(0);
-        values.add(0);
-        values.add(0);
-        values.add(0);
         for (Month a : Month.values()) {
+            List<Integer> values = new ArrayList<>();
+            values.add(0);
+            values.add(0);
+            values.add(0);
+            values.add(0);
             monthlyObservationsByAnimalType.put(a.getName(), values);
         }
         
@@ -64,7 +65,6 @@ public class StatisticsHandler {
     }
 
     private Integer findLimitValueInMap(Map map, String type) {
-
         Integer result = 0;
 
         if (type.equals(MIN)) {
@@ -76,8 +76,8 @@ public class StatisticsHandler {
     }
 
     private List<String> findLimitKeysInMap(Map map, int value) {
-
         List<String> keys = new ArrayList<>();
+        
         for (Object iter : map.entrySet()) {
             Entry<String, Integer> entry = (Entry<String, Integer>) iter;
             if (entry.getValue() == value) {
@@ -90,6 +90,7 @@ public class StatisticsHandler {
 
     private String returnDataString(List<String> list) {
         StringJoiner joiner = new StringJoiner(" - ");
+        
         for (String iter : list) {
             joiner.add(iter);
         }
@@ -104,7 +105,6 @@ public class StatisticsHandler {
         }
     }
     
-
     public void countCameraObservation(String cameraName, int numberOfTagsForAnImage) {
         this.countStringMap(cameraObservations, cameraName, numberOfTagsForAnImage);
     }
@@ -128,19 +128,18 @@ public class StatisticsHandler {
             }
         }
     }
-        
+
     public void countMonthlyObservationsByAnimalType(String animal, String month) {
-        
+
         for (Month a : Month.values()) {
             if (month.equals(a.getName())) {
-                List<Integer> list = monthlyObservationsByAnimalType.get(a.getName());
-                for (animalType b : animalType.values()){
-                    if (animal.equals(b.getName())){
-                            list.set(b.ordinal(),(list.get(b.ordinal()) + 1));
-                    } 
+                for (animalType b : animalType.values()) {                 
+                    if (animal.equals(b.getName())) {                       
+                        List<Integer> list = monthlyObservationsByAnimalType.get(a.getName());
+                        list.set(b.ordinal(), (list.get(b.ordinal()) + 1));
+                    }
                 }
-                monthlyObservationsByAnimalType.put(a.getName(), list);
-            }
+            } 
         }
     }
 
@@ -203,6 +202,10 @@ public class StatisticsHandler {
     
     public int getTaggedSequenceNumber() {
         return sequenceObservations.size();
+    }
+    
+    public String test(){
+        return monthlyObservationsByAnimalType.toString();
     }
     
 }

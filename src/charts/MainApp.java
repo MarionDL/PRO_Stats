@@ -54,6 +54,7 @@ public class MainApp extends JFrame {
         parser = new JsonStatisticsParser(statHandler);
         parser.parseFile();
         statHandler.analyzeData();
+        System.out.println(statHandler.test());
 
         Group root = new Group();
         Color backgroundColor = Color.rgb(110, 25, 222);
