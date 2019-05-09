@@ -38,7 +38,8 @@ public class JsonStatisticsParser {
 
             JsonObject images = (JsonObject) obj;
 
-            statHandler.setTotalNbOfAnimals(images.get("imageCounter").getAsInt());    
+           // statHandler.setTotalNbOfAnimals(images.get("imageCounter").getAsInt());  // plus necessaire
+            
             JsonArray content = (JsonArray) images.get("content");
             parseImageContent(content);
 
@@ -66,8 +67,8 @@ public class JsonStatisticsParser {
            statHandler.countCameraObservation(imageStructure.getCamera(), tagsStructure.size());
            statHandler.countDaysObservation(imageStructure.getDate(), tagsStructure.size());
            statHandler.countSequenceObservation(imageStructure.getSequence(), tagsStructure.size());
-           
-           //System.out.println(image);
+           statHandler.addNbAnimals(tagsStructure.size());
+
            statHandler.addImage(imageStructure);
         }
         

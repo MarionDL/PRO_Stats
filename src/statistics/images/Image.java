@@ -19,7 +19,8 @@ import java.util.stream.StreamSupport;
 public class Image {
 
     private String camera;
-    private String date;
+    private String date;                // xxxx-xx-xx form
+    private String month;
     private String sequence;            // hh:mm form  
     private final ArrayList<Tag> tags;  // Tags saved in this image
 
@@ -40,7 +41,8 @@ public class Image {
             String[] path_sep = splitPath(path);
             this.camera = path_sep[0];
             this.date = path_sep[1];
-            this.sequence = path_sep[4] + ":" + path_sep[5];
+           // this.month = 
+            this.sequence =  path_sep[0] +"/"+ path_sep[1] +"/"+ path_sep[4] + ":" + path_sep[5];
 
         } catch (Exception e) {
             System.out.println("Error: not valid path");

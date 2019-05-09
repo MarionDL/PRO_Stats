@@ -53,9 +53,7 @@ public class MainApp extends JFrame {
         // Recuperation des donnees du parser
         parser = new JsonStatisticsParser(statHandler);
         parser.parseFile();
-        System.out.println(statHandler.sequenceObservations);
-        System.out.println(statHandler.daysObservations);
-        System.out.println(statHandler.cameraObservations);
+        statHandler.analyzeData();
 
         Group root = new Group();
         Color backgroundColor = Color.rgb(110, 25, 222);
@@ -85,7 +83,7 @@ public class MainApp extends JFrame {
         Group pieChartGroup = new Group();
         
         // Recuperation du nombre d'animaux
-        int totalNbOfAnimals = statHandler.getTotalNbOfAnimals();
+        int totalNbOfAnimals = statHandler.getTaggedAnimals();
         int nbOfTritons = statHandler.getAnimalTypeCounter().get(animalType.TRITON);
         int nbOfToads = statHandler.getAnimalTypeCounter().get(animalType.GRENOUILLE);
         int nbOfFrogs = statHandler.getAnimalTypeCounter().get(animalType.CRAPAUD);
@@ -133,9 +131,9 @@ public class MainApp extends JFrame {
 
         Text imagesInfos = new Text();
         imagesInfos.setFont(new Font(10));
-        imagesInfos.setText("tagged : 423\n" +
-                            "untagged : 327\n" +
-                            "total count : 750");
+        imagesInfos.setText("tagged : "+ statHandler.getTaggedImages() +"\n" +
+                            "untagged : XXX\n" +
+                            "total count : XXX");
         imagesInfos.setX(670);
         imagesInfos.setY(80);
         imagesInfos.setFill(Color.WHITE);
@@ -151,9 +149,12 @@ public class MainApp extends JFrame {
 
         Text sequencesInfos = new Text();
         sequencesInfos.setFont(new Font(10));
-        sequencesInfos.setText("tagged : 40\n" +
-                "untagged : 35\n" +
-                "total count : 75");
+        sequencesInfos.setText("tagged : "+ statHandler.getTaggedSequenceNumber() +"\n" +
+                "untagged : XXX\n" +
+                "total count : XXX\n" +
+                "most captures : "+ statHandler.getMostTaggedSequence() +"\n" +
+                "least captures : "+ statHandler.getLeastTaggedSequence() +"\n");
+        
         sequencesInfos.setX(670);
         sequencesInfos.setY(180);
         sequencesInfos.setFill(Color.WHITE);
@@ -169,8 +170,8 @@ public class MainApp extends JFrame {
 
         Text camerasInfos = new Text();
         camerasInfos.setFont(new Font(10));
-        camerasInfos.setText("most used : CR1\n" +
-                "least used : CR5\n");
+        camerasInfos.setText("most used : "+ statHandler.getMostUsedCamera() +"\n" +
+                             "least used : "+ statHandler.getLeastUsedCamera() +"\n");
         camerasInfos.setX(670);
         camerasInfos.setY(285);
         camerasInfos.setFill(Color.WHITE);
@@ -186,8 +187,8 @@ public class MainApp extends JFrame {
 
         Text observationsInfos = new Text();
         observationsInfos.setFont(new Font(10));
-        observationsInfos.setText("most : 2017-02-23\n" +
-                "least : 2017-3-11\n");
+        observationsInfos.setText("most : "+ statHandler.getMostFrequentDate() +"\n" +
+                                 "least : "+ statHandler.getLeastFrequentDate() +"\n");
         observationsInfos.setX(670);
         observationsInfos.setY(385);
         observationsInfos.setFill(Color.WHITE);
