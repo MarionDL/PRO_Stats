@@ -8,11 +8,13 @@ package charts;
 import animalType.animalType;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringJoiner;
+import java.util.TreeMap;
 import statistics.images.Image;
 
 /**
@@ -29,8 +31,10 @@ public class StatisticsHandler {
     private Map<String, Integer> cameraObservations = new HashMap<>();
     private Map<String, Integer> dateObservations = new HashMap<>();
     private Map<String, Integer> sequenceObservations = new HashMap<>();
-    private Map<String, Integer> monthlyObservations = new HashMap<>();
-    private Map<String, List<Integer>> monthlyObservationsByAnimalType = new HashMap<>();
+    private Map<Month, Integer> monthlyObservations = new HashMap<>();
+    private Map<Month, List<Integer>> monthlyObservationsByAnimalType = new TreeMap<Month, List<Integer>>(
+            (Month o1, Month o2) -> o1.compareTo(o2));
+    
     
     private int totalNbOfAnimals;
     
@@ -46,21 +50,25 @@ public class StatisticsHandler {
     }
 
     private void initiasize() {   
-        
-        
+  
         for (animalType a : animalType.values()) {
-            animalTypeCounter.put(a, 0);  
+            // initialisation de la liste pour animalTypeCounter à 0 pour toute categorie
+            animalTypeCounter.put(a, 0);
         }
-        
+
         for (Month a : Month.values()) {
             List<Integer> values = new ArrayList<>();
-            values.add(0);
-            values.add(0);
-            values.add(0);
-            values.add(0);
-            monthlyObservationsByAnimalType.put(a.getName(), values);
+            // initialisation de la liste pour monthlyObservationsByAnimalType à 0 pour toute categorie
+            for (animalType b : animalType.values()) {
+                values.add(0);
+            }
+            
+            //initialisation du mappage monthlyObservations à 0 comme valeur
+            monthlyObservations.put(a, 0);
+            //initialisation du mappage monthlyObservationsByAnimalType à liste comme valeur
+            monthlyObservationsByAnimalType.put(a, values);
         }
-        
+
         totalNbOfAnimals = 0;
     }
 
@@ -97,7 +105,7 @@ public class StatisticsHandler {
         return joiner.toString();
     }
 
-    private void countStringMap(Map map, String key, int value) {
+    private void countStringMap(Map map, Object key, int value) {
         if (map.containsKey(key)) {
             map.put(key, (Integer) (map.get(key)) + value);
         } else {
@@ -117,8 +125,8 @@ public class StatisticsHandler {
         this.countStringMap(sequenceObservations, sequenceName, numberOfTagsForAnImage);
     }
     
-    public void countMonthlyObservation(String monthName, int numberOfTagsForAnImage) {
-        this.countStringMap(monthlyObservations, monthName, numberOfTagsForAnImage);
+    public void countMonthlyObservation(Month month, int numberOfTagsForAnImage) {
+        this.countStringMap(monthlyObservations, month, numberOfTagsForAnImage);
     }
 
     public void countAnimalType(String animal) {
@@ -129,13 +137,13 @@ public class StatisticsHandler {
         }
     }
 
-    public void countMonthlyObservationsByAnimalType(String animal, String month) {
+    public void countMonthlyObservationsByAnimalType(String animal, Month month) {
 
         for (Month a : Month.values()) {
-            if (month.equals(a.getName())) {
+            if (month.equals(a)) {
                 for (animalType b : animalType.values()) {                 
                     if (animal.equals(b.getName())) {                       
-                        List<Integer> list = monthlyObservationsByAnimalType.get(a.getName());
+                        List<Integer> list = monthlyObservationsByAnimalType.get(a);
                         list.set(b.ordinal(), (list.get(b.ordinal()) + 1));
                     }
                 }
@@ -199,13 +207,21 @@ public class StatisticsHandler {
     public String getLeastTaggedSequence() {
         return returnDataString(sequenceMinKeys);
     }
-    
+
     public int getTaggedSequenceNumber() {
         return sequenceObservations.size();
     }
-    
-    public String test(){
+
+    public String test() {
         return monthlyObservationsByAnimalType.toString();
     }
-    
+
+    public int getAnimalNbByMonth(Month month) {
+        return monthlyObservations.get(month);
+    }
+
+    public List getAnimalNbByMonthByType(Month month) {
+        return monthlyObservationsByAnimalType.get(month);
+    }
+
 }

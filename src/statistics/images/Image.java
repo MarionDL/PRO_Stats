@@ -6,7 +6,6 @@
 package statistics.images;
 
 import charts.Month;
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import statistics.tags.*;
@@ -67,8 +66,8 @@ public class Image {
         return this.sequence;
     }
 
-    public String getMonth() {
-        return this.month.getName();
+    public Month getMonth() {
+        return this.month;
     }
 
     @Override

@@ -60,8 +60,7 @@ public class JsonStatisticsParser {
             String path = (String) jimage.get("path").getAsString();
             JsonArray tags = (JsonArray) jimage.get("tags");
             
-           ArrayList<Tag> tagsStructure = parseContentTags(tags);
-           
+           ArrayList<Tag> tagsStructure = parseContentTags(tags);         
            Image imageStructure = new Image(path, tagsStructure);
            
            statHandler.countCameraObservation(imageStructure.getCamera(), tagsStructure.size());

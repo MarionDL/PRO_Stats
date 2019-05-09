@@ -22,6 +22,7 @@ import javax.swing.*;
 import jsonstatisticsparser.*;
 import animalType.*;
 import java.util.Arrays;
+import java.util.List;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -156,19 +157,23 @@ public class MainApp extends JFrame {
         
         XYChart.Series series = new XYChart.Series();
         
+        for (Month m : Month.values()){
+           series.getData().add(new XYChart.Data(m.getAbbreviation(), statHandler.getAnimalNbByMonth(m)));
+        }
+        
         // Remplissage du graphe
-        series.getData().add(new XYChart.Data("Jan", 23));
-        series.getData().add(new XYChart.Data("Feb", 14));
-        series.getData().add(new XYChart.Data("Mar", 15));
-        series.getData().add(new XYChart.Data("Apr", 24));
-        series.getData().add(new XYChart.Data("May", 34));
-        series.getData().add(new XYChart.Data("Jun", 36));
-        series.getData().add(new XYChart.Data("Jul", 22));
-        series.getData().add(new XYChart.Data("Aug", 45));
-        series.getData().add(new XYChart.Data("Sep", 43));
-        series.getData().add(new XYChart.Data("Oct", 17));
-        series.getData().add(new XYChart.Data("Nov", 29));
-        series.getData().add(new XYChart.Data("Dec", 25));
+//        series.getData().add(new XYChart.Data("Jan", 23));
+//        series.getData().add(new XYChart.Data("Feb", 14));
+//        series.getData().add(new XYChart.Data("Mar", 15));
+//        series.getData().add(new XYChart.Data("Apr", 24));
+//        series.getData().add(new XYChart.Data("May", 34));
+//        series.getData().add(new XYChart.Data("Jun", 36));
+//        series.getData().add(new XYChart.Data("Jul", 22));
+//        series.getData().add(new XYChart.Data("Aug", 45));
+//        series.getData().add(new XYChart.Data("Sep", 43));
+//        series.getData().add(new XYChart.Data("Oct", 17));
+//        series.getData().add(new XYChart.Data("Nov", 29));
+//        series.getData().add(new XYChart.Data("Dec", 25));
         
         lineChart.getData().add(series);
         lineChartGroup.getChildren().add(lineChart);
@@ -194,57 +199,74 @@ public class MainApp extends JFrame {
         sbc.setLayoutX(500);
         sbc.setLayoutY(500);
         
-        // Definition des series (type d'animal)
-        XYChart.Series<String, Number> seriesTriton = new XYChart.Series<>();
-        XYChart.Series<String, Number> seriesFrog = new XYChart.Series<>();
-        XYChart.Series<String, Number> seriesToad = new XYChart.Series<>();
-        seriesTriton.setName("Tritons");
-        seriesFrog.setName("Frogs");
-        seriesToad.setName("Toads");
-        
-        // Donnees sur les tritons
-        seriesTriton.getData().add(new XYChart.Data<>("Jan", 25));
-        seriesTriton.getData().add(new XYChart.Data<>("Feb", 5));
-        seriesTriton.getData().add(new XYChart.Data<>("Mar", 23));
-        seriesTriton.getData().add(new XYChart.Data<>("Apr", 45));
-        seriesTriton.getData().add(new XYChart.Data<>("May", 45));
-        seriesTriton.getData().add(new XYChart.Data<>("Jun", 25));
-        seriesTriton.getData().add(new XYChart.Data<>("Jul", 5));
-        seriesTriton.getData().add(new XYChart.Data<>("Aug", 23));
-        seriesTriton.getData().add(new XYChart.Data<>("Sep", 45));
-        seriesTriton.getData().add(new XYChart.Data<>("Oct", 45));
-        seriesTriton.getData().add(new XYChart.Data<>("Nov", 25));
-        seriesTriton.getData().add(new XYChart.Data<>("Dec", 5));
-        
-        // Donnees sur les crapauds
-        seriesToad.getData().add(new XYChart.Data<>("Jan", 40));
-        seriesToad.getData().add(new XYChart.Data<>("Feb", 7));
-        seriesToad.getData().add(new XYChart.Data<>("Mar", 38));
-        seriesToad.getData().add(new XYChart.Data<>("Apr", 50));
-        seriesToad.getData().add(new XYChart.Data<>("May", 50));
-        seriesToad.getData().add(new XYChart.Data<>("Jun", 50));
-        seriesToad.getData().add(new XYChart.Data<>("Jul", 38));
-        seriesToad.getData().add(new XYChart.Data<>("Aug", 34));
-        seriesToad.getData().add(new XYChart.Data<>("Sep", 32));
-        seriesToad.getData().add(new XYChart.Data<>("Oct", 25));
-        seriesToad.getData().add(new XYChart.Data<>("Nov", 6));
-        seriesToad.getData().add(new XYChart.Data<>("Dec", 8));
-        
-        // Donnees sur les grenouilles
-        seriesFrog.getData().add(new XYChart.Data<>("Jan", 50));
-        seriesFrog.getData().add(new XYChart.Data<>("Feb", 12));
-        seriesFrog.getData().add(new XYChart.Data<>("Mar", 22));
-        seriesFrog.getData().add(new XYChart.Data<>("Apr", 34));
-        seriesFrog.getData().add(new XYChart.Data<>("May", 55));
-        seriesFrog.getData().add(new XYChart.Data<>("Jun", 66));
-        seriesFrog.getData().add(new XYChart.Data<>("Jul", 34));
-        seriesFrog.getData().add(new XYChart.Data<>("Aug", 36));
-        seriesFrog.getData().add(new XYChart.Data<>("Sep", 39));
-        seriesFrog.getData().add(new XYChart.Data<>("Oct", 25));
-        seriesFrog.getData().add(new XYChart.Data<>("Nov", 10));
-        seriesFrog.getData().add(new XYChart.Data<>("Dec", 8));
-        
-        sbc.getData().addAll(seriesTriton, seriesFrog, seriesToad);
+
+         for (animalType a : animalType.values()){               
+            XYChart.Series<String, Number> serie = new XYChart.Series<>();
+            serie.setName(a.getName());          
+            sbc.getData().add(serie);
+        }
+          
+        for (Month m : Month.values()) {
+            List<Integer> list = statHandler.getAnimalNbByMonthByType(m);
+            for (animalType a2 : animalType.values()) {
+                XYChart.Series<String, Number> serie = sbc.getData().get(a2.ordinal());
+                serie.getData().add(new XYChart.Data<>(m.getAbbreviation(), list.get(a2.ordinal())));
+                System.out.println("for " + m.getAbbreviation() + " we have " + list.get(a2.ordinal()) + " " + a2.getName());
+            }
+        }
+               
+//        // Definition des series (type d'animal)
+//        XYChart.Series<String, Number> seriesTriton = new XYChart.Series<>();
+//        XYChart.Series<String, Number> seriesFrog = new XYChart.Series<>();
+//        XYChart.Series<String, Number> seriesToad = new XYChart.Series<>();
+//        seriesTriton.setName("Tritons");
+//        seriesFrog.setName("Frogs");
+//        seriesToad.setName("Toads");
+//
+//        // Donnees sur les tritons
+//        seriesTriton.getData().add(new XYChart.Data<>("Jan", 25));
+//        seriesTriton.getData().add(new XYChart.Data<>("Feb", 5));
+//        seriesTriton.getData().add(new XYChart.Data<>("Mar", 23));
+//        seriesTriton.getData().add(new XYChart.Data<>("Apr", 45));
+//        seriesTriton.getData().add(new XYChart.Data<>("May", 45));
+//        seriesTriton.getData().add(new XYChart.Data<>("Jun", 25));
+//        seriesTriton.getData().add(new XYChart.Data<>("Jul", 5));
+//        seriesTriton.getData().add(new XYChart.Data<>("Aug", 23));
+//        seriesTriton.getData().add(new XYChart.Data<>("Sep", 45));
+//        seriesTriton.getData().add(new XYChart.Data<>("Oct", 45));
+//        seriesTriton.getData().add(new XYChart.Data<>("Nov", 25));
+//        seriesTriton.getData().add(new XYChart.Data<>("Dec", 5));
+//        
+//        // Donnees sur les crapauds
+//        seriesToad.getData().add(new XYChart.Data<>("Jan", 40));
+//        seriesToad.getData().add(new XYChart.Data<>("Feb", 7));
+//        seriesToad.getData().add(new XYChart.Data<>("Mar", 38));
+//        seriesToad.getData().add(new XYChart.Data<>("Apr", 50));
+//        seriesToad.getData().add(new XYChart.Data<>("May", 50));
+//        seriesToad.getData().add(new XYChart.Data<>("Jun", 50));
+//        seriesToad.getData().add(new XYChart.Data<>("Jul", 38));
+//        seriesToad.getData().add(new XYChart.Data<>("Aug", 34));
+//        seriesToad.getData().add(new XYChart.Data<>("Sep", 32));
+//        seriesToad.getData().add(new XYChart.Data<>("Oct", 25));
+//        seriesToad.getData().add(new XYChart.Data<>("Nov", 6));
+//        seriesToad.getData().add(new XYChart.Data<>("Dec", 8));
+//        
+//        // Donnees sur les grenouilles
+//        seriesFrog.getData().add(new XYChart.Data<>("Jan", 50));
+//        seriesFrog.getData().add(new XYChart.Data<>("Feb", 12));
+//        seriesFrog.getData().add(new XYChart.Data<>("Mar", 22));
+//        seriesFrog.getData().add(new XYChart.Data<>("Apr", 34));
+//        seriesFrog.getData().add(new XYChart.Data<>("May", 55));
+//        seriesFrog.getData().add(new XYChart.Data<>("Jun", 66));
+//        seriesFrog.getData().add(new XYChart.Data<>("Jul", 34));
+//        seriesFrog.getData().add(new XYChart.Data<>("Aug", 36));
+//        seriesFrog.getData().add(new XYChart.Data<>("Sep", 39));
+//        seriesFrog.getData().add(new XYChart.Data<>("Oct", 25));
+//        seriesFrog.getData().add(new XYChart.Data<>("Nov", 10));
+//        seriesFrog.getData().add(new XYChart.Data<>("Dec", 8));
+//        
+//       // sbc.getData().add(seriesToad);
+//        sbc.getData().addAll(seriesTriton, seriesFrog, seriesToad);
         barChartGroup.getChildren().add(sbc);
         
         return barChartGroup;
