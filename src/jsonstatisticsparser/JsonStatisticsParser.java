@@ -68,12 +68,10 @@ public class JsonStatisticsParser {
            statHandler.countSequenceObservation(imageStructure.getSequence(), tagsStructure.size());
            statHandler.countMonthlyObservation(imageStructure.getMonth(), tagsStructure.size());
            statHandler.addNbAnimals(tagsStructure.size());
-           
            for (Tag tag : tagsStructure){      
                statHandler.countMonthlyObservationsByAnimalType(tag.getAnimalType(), imageStructure.getMonth());
                statHandler.countAnimalType(tag.getAnimalType());
            }
-           
            statHandler.addImage(imageStructure);
         }
         

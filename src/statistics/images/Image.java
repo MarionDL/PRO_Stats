@@ -43,7 +43,7 @@ public class Image {
             this.date = path_sep[1];
             this.sequence = path_sep[0] + "/" + path_sep[1] + "/" + path_sep[4] + ":" + path_sep[5];
             String[] dateParts = date.split("-");
-            this.month = Month.values()[Integer.parseInt(dateParts[1])];
+            this.month = Month.values()[Integer.parseInt(dateParts[1])-1];
 
         } catch (Exception e) {
             System.out.println("Error: not valid path");
