@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package charts;
+package GUI;
 
+import Statistics.components.Month;
+import Statistics.parser.statParser;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javax.swing.*;
 
-import jsonstatisticsparser.*;
 import animalType.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,14 +30,15 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
+import Statistics.handler.StatisticsHandler;
 
 /**
  *
  * @author Marion
  */
-public class MainApp extends JFrame {
+public class statisticsPage extends JFrame {
     
-    private static JsonStatisticsParser parser;
+    private static statParser parser;
     private static StatisticsHandler statHandler = new StatisticsHandler();
     
     public static void initAndShowGUI() {
@@ -59,7 +61,7 @@ public class MainApp extends JFrame {
     private static Scene createScene() {
         
         // Recuperation des donnees du parser
-        parser = new JsonStatisticsParser(statHandler);
+        parser = new statParser(statHandler);
         parser.parseFile();
         statHandler.analyzeData();
         System.out.println(statHandler.test());
@@ -67,7 +69,7 @@ public class MainApp extends JFrame {
         Group root = new Group();
         Color backgroundColor = Color.rgb(110, 25, 222);
         Scene scene = new Scene(root, backgroundColor);
-        scene.getStylesheets().add("charts/AppStyle.css");
+        scene.getStylesheets().add("Statistics/style/chartsStyle.css");
 
         /*
         * Creation de la Pie Chart principale
@@ -105,18 +107,18 @@ public class MainApp extends JFrame {
         
         // Recuperation du nombre d'animaux
         int totalNbOfAnimals = statHandler.getTaggedAnimals();
-        int nbOfTritons = statHandler.getAnimalTypeCounter().get(animalType.TRITON);
-        int nbOfToads = statHandler.getAnimalTypeCounter().get(animalType.GRENOUILLE);
-        int nbOfFrogs = statHandler.getAnimalTypeCounter().get(animalType.CRAPAUD);
-        int nbOfOther = statHandler.getAnimalTypeCounter().get(animalType.AUTRE);
+        int nbOfTritons = statHandler.getAnimalTypeCounter().get(AnimalType.TRITON);
+        int nbOfToads = statHandler.getAnimalTypeCounter().get(AnimalType.GRENOUILLE);
+        int nbOfFrogs = statHandler.getAnimalTypeCounter().get(AnimalType.CRAPAUD);
+        int nbOfOther = statHandler.getAnimalTypeCounter().get(AnimalType.AUTRE);
         
         // Creation d'une liste de donnees a mettre dans la pie chart
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                new PieChart.Data(animalType.TRITON.getName(), nbOfTritons),
-                new PieChart.Data(animalType.GRENOUILLE.getName(), nbOfFrogs),
-                new PieChart.Data(animalType.CRAPAUD.getName(), nbOfToads),
-                new PieChart.Data(animalType.AUTRE.getName(), nbOfOther));
+                new PieChart.Data(AnimalType.TRITON.getName(), nbOfTritons),
+                new PieChart.Data(AnimalType.GRENOUILLE.getName(), nbOfFrogs),
+                new PieChart.Data(AnimalType.CRAPAUD.getName(), nbOfToads),
+                new PieChart.Data(AnimalType.AUTRE.getName(), nbOfOther));
         
         PieChart chart = new PieChart(pieChartData);
         // Positionnement a gauche de la fenetre
@@ -192,7 +194,7 @@ public class MainApp extends JFrame {
         sbc.setLayoutY(500);
         
 
-         for (animalType a : animalType.values()){               
+         for (AnimalType a : AnimalType.values()){               
             XYChart.Series<String, Number> serie = new XYChart.Series<>();
             serie.setName(a.getName());          
             sbc.getData().add(serie);
@@ -200,14 +202,13 @@ public class MainApp extends JFrame {
           
         for (Month m : Month.values()) {
             List<Integer> list = statHandler.getAnimalNbByMonthByType(m);
-            for (animalType a2 : animalType.values()) {
+            for (AnimalType a2 : AnimalType.values()) {
                 XYChart.Series<String, Number> serie = sbc.getData().get(a2.ordinal());
                 serie.getData().add(new XYChart.Data<>(m.getAbbreviation(), list.get(a2.ordinal())));
             }
         }
                
-        barChartGroup.getChildren().add(sbc);
-        
+        barChartGroup.getChildren().add(sbc);        
         return barChartGroup;
     }
     

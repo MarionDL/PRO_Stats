@@ -3,28 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jsonstatisticsparser;
+package Statistics.parser;
 
+import Statistics.handler.StatisticsHandler;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import com.google.gson.*;
 import java.util.ArrayList;
 
-import statistics.images.Image;
-import statistics.tags.Tag;
-import charts.*;
+import Statistics.components.Image;
+import Statistics.components.Tag;
 
 /**
  *
  * @author Edd993Surface
  */
-public class JsonStatisticsParser {
+public class statParser {
  
     private static final String HISTORIC = "history.json";
     private StatisticsHandler statHandler;
     
-    public JsonStatisticsParser(StatisticsHandler statHandler) {
+    public statParser(StatisticsHandler statHandler) {
         this.statHandler = statHandler;
     }
      

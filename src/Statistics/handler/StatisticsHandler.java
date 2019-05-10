@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package charts;
+package Statistics.handler;
 
-import animalType.animalType;
+import Statistics.components.Month;
+import animalType.AnimalType;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringJoiner;
 import java.util.TreeMap;
-import statistics.images.Image;
+import Statistics.components.Image;
 
 /**
  *
@@ -27,7 +28,7 @@ public class StatisticsHandler {
     private static final String MAX = "max";
     private static ArrayList<Image> images = new ArrayList<>();
 
-    private Map<animalType, Integer> animalTypeCounter = new HashMap<>();
+    private Map<AnimalType, Integer> animalTypeCounter = new HashMap<>();
     private Map<String, Integer> cameraObservations = new HashMap<>();
     private Map<String, Integer> dateObservations = new HashMap<>();
     private Map<String, Integer> sequenceObservations = new HashMap<>();
@@ -51,7 +52,7 @@ public class StatisticsHandler {
 
     private void initiasize() {   
   
-        for (animalType a : animalType.values()) {
+        for (AnimalType a : AnimalType.values()) {
             // initialisation de la liste pour animalTypeCounter à 0 pour toute categorie
             animalTypeCounter.put(a, 0);
         }
@@ -59,7 +60,7 @@ public class StatisticsHandler {
         for (Month a : Month.values()) {
             List<Integer> values = new ArrayList<>();
             // initialisation de la liste pour monthlyObservationsByAnimalType à 0 pour toute categorie
-            for (animalType b : animalType.values()) {
+            for (AnimalType b : AnimalType.values()) {
                 values.add(0);
             }
             
@@ -130,7 +131,7 @@ public class StatisticsHandler {
     }
 
     public void countAnimalType(String animal) {
-        for (animalType a : animalType.values()) {
+        for (AnimalType a : AnimalType.values()) {
             if (animal.equals(a.getName())) {
                 animalTypeCounter.put(a, animalTypeCounter.get(a) + 1);
             }
@@ -141,7 +142,7 @@ public class StatisticsHandler {
 
         for (Month a : Month.values()) {
             if (month.equals(a)) {
-                for (animalType b : animalType.values()) {                 
+                for (AnimalType b : AnimalType.values()) {                 
                     if (animal.equals(b.getName())) {                       
                         List<Integer> list = monthlyObservationsByAnimalType.get(a);
                         list.set(b.ordinal(), (list.get(b.ordinal()) + 1));
@@ -168,7 +169,7 @@ public class StatisticsHandler {
        this.totalNbOfAnimals += n;
     }
     
-    public Map<animalType, Integer> getAnimalTypeCounter() {
+    public Map<AnimalType, Integer> getAnimalTypeCounter() {
         return this.animalTypeCounter;
     }
 

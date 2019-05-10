@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package statistics.images;
+package Statistics.components;
 
-import charts.Month;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import statistics.tags.*;
 import java.util.ArrayList;
 import java.util.stream.StreamSupport;
 

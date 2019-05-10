@@ -9,7 +9,7 @@ package animalType;
  *
  * @author Edd993Surface
  */
-public enum animalType {
+public enum AnimalType {
     
    
     GRENOUILLE("Grenouille"),
@@ -19,7 +19,7 @@ public enum animalType {
 
     private final String animalName;
 
-    animalType(String animalName) {
+    AnimalType(String animalName) {
         this.animalName = animalName;
     }
     
